@@ -29,7 +29,7 @@
             <option value="Helvetica">Helvetica</option>
             <option value="Times New Roman">Times New Roman</option>
             <option value="serif">明朝体</option>
-            <!-- 他の利用可能なフォントを追加 -->
+            <!-- 他のフォントを追加 -->
           </select>
 
           <!-- 日付の選択肢 -->
@@ -58,40 +58,6 @@
         <div id="svgOutput"></div>
       </div>
     </div>
-
-    <script>
-      // 今日の日付を取得してinput要素にセットする
-      const today = new Date().toISOString().slice(0, 10);
-      document.getElementById("date").value = today;
-
-      // JSONファイルを読み込む関数
-      async function fetchJSONData() {
-        const response = await fetch("data.json"); // JSONファイルのパスを指定
-        if (!response.ok) {
-          throw new Error("Failed to fetch JSON data");
-        }
-        return await response.json();
-      }
-
-      // ページの読み込みが完了した後に実行
-      window.addEventListener("DOMContentLoaded", async () => {
-        try {
-          // JSONファイルを読み込む
-          const jsonData = await fetchJSONData();
-
-          // input要素の初期値を設定
-          const nameInput = document.getElementById("name");
-          nameInput.value = jsonData.name; // JSONデータの"name"プロパティに対応
-
-          const departmentInput = document.getElementById("department");
-          departmentInput.value = jsonData.department; // JSONデータの"department"プロパティに対応
-
-          // 他のinput要素も同様に設定
-        } catch (error) {
-          console.error(error);
-        }
-      });
-    </script>
     <script src="script.js"></script>
   </body>
 </html>

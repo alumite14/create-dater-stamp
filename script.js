@@ -89,14 +89,14 @@ function downloadSVG() {
 
   const downloadLink = document.createElement("a");
   downloadLink.href = URL.createObjectURL(svgBlob);
-  downloadLink.download = "data_stamp.svg";
+  downloadLink.download = "dater_stamp.svg";
   downloadLink.style.display = "none";
   document.body.appendChild(downloadLink);
   downloadLink.click();
   document.body.removeChild(downloadLink);
 }
 
-// テキストボックスと日付入力欄の変更時にリアルタイムでSVGを更新
+// 変更時にリアルタイムでSVGを更新
 const inputs = document.querySelectorAll(
   'input[type="text"], input[type="date"], input[type="color"], input[type="checkbox"], select'
 );
@@ -108,5 +108,36 @@ inputs.forEach((input) => {
 const downloadButton = document.getElementById("downloadButton");
 downloadButton.addEventListener("click", downloadSVG);
 
-// 初期表示時にSVGを生成
-updateSVG();
+// JSONファイルを読み込む関数
+async function fetchJSONData() {
+  const response = await fetch("data.json"); // JSONファイルのパスを指定
+  if (!response.ok) {
+    throw new Error("Failed to fetch JSON data");
+  }
+  return await response.json();
+}
+
+// ページの読み込みが完了した後に実行
+window.addEventListener("DOMContentLoaded", async () => {
+  // 今日の日付を取得してinput要素にセットする
+  const today = new Date().toISOString().slice(0, 10);
+  document.getElementById("date").value = today;
+  const nameInput = document.getElementById("name");
+  const departmentInput = document.getElementById("department");
+
+  try {
+    // JSONファイルを読み込む
+    const jsonData = await fetchJSONData();
+    nameInput.value = jsonData.name;
+    departmentInput.value = jsonData.department;
+  } catch (error) {
+    // エラー用の初期値
+    nameInput.value = "佐藤";
+    departmentInput.value = "技術部";
+
+    // SVGを生成
+    console.error(error);
+  }
+  // SVGを生成
+  updateSVG();
+});
