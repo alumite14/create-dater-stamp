@@ -130,6 +130,14 @@ button:hover {
     width: 100%;
     font-size: 0.6rem;
   }
+  /* https://qiita.com/fmsyt/items/7781bc56b99291e390e0 */
+  input[type="date"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+  input[type="date"]::-webkit-date-and-time-value {
+    text-align: left;
+  }
   .content-wrapper {
     width: 100%;
     flex-direction: column-reverse;
