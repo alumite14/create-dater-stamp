@@ -113,13 +113,35 @@ button:hover {
 
 .formContainer {
   padding: 18px;
-  /* border: 1px solid #007bff; */
   margin-right: 30px;
 }
 
 .svgContainer {
   background-color: #d8d8db;
   padding: 18px;
+}
 
-  /* border: 1px solid #007bff; */
+@media screen and (max-width: 480px) {
+  /* 480px以下に適用 */
+  body {
+    margin: 40px 20px 20px;
+  }
+  header {
+    width: 100%;
+    font-size: 0.6rem;
+  }
+  .content-wrapper {
+    width: 100%;
+    flex-direction: column-reverse;
+  }
+  .formContainer {
+    margin: 0;
+  }
+  .svgContainer {
+    text-align: center;
+  }
+  #svgOutput svg {
+    width: 40%;
+    height: 40%;
+  }
 }
